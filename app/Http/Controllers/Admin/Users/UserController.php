@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\users\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -78,7 +79,7 @@ class UserController extends Controller
     {
         $request->updateUser($employee);
 
-        return inertia('Admin/Users/Index');
+        return Redirect::route('admin.users.edit', $employee);
     }
 
     /**
@@ -89,6 +90,7 @@ class UserController extends Controller
      */
     public function destroy(User $employee)
     {
-        //
+        $employee->delete();
+        return Redirect::back();
     }
 }
